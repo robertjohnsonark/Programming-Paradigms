@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Assignment 10 Robert Johnson</title>
+	<style>
+		.error {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Assignment 10 Robert Johnson</h1>
+		<p>Type in your name to start</p>
+		<form action="" method="get" onsubmit="return validate(event)">
+			<div class="form-item">
+				<label for="first">First name</label>
+				<input type="text" name="first" value="Robert" id="first-input" autocomplete="off">
+			</div>
+			<div class="form-item">
+				<label for="last">Last name</label>
+				<input type="text" name="last" value="Johnson" id="last-input" autocomplete="off">
+			</div>
+			<div class="form-item">
+				<button type="submit">Continue</button>
+			</div>
+		</form>
+		<p class="error"></p>
+	</div>
+</body>
+<script>
+	function validate(e) {
+		if (document.getElementById('first-input').value && document.getElementById('last-input').value)
+			return true;
+		e.preventDefault();
+		document.querySelector('.error').textContent = 'First and last name are required';
+		return false;
+	}
+</script>
+</html>

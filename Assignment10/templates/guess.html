@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Assignment 10 Robert Johnson</title>
+	<style>
+		
+		.error {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Hi {{ first }} {{ last }}</h1>
+		<p>Guess a number between 1 and 5.</p>
+		<form action="" method="post">
+			<div class="form-item">
+				<label for="guess">Guess</label>
+				<input type="number" name="guess" placeholder="A number from 1 to 5" id="guess-input" autocomplete="off">
+			</div>
+			<input type="hidden" name="answer" id="answer-input" value="{{ number }}">
+			<div class="form-item">
+				<button type="submit">Check Guess</button>
+			</div>
+		</form>
+		{% if failed %}
+			<p class="error">The number is not {{ guess }}</p>
+		{% endif %}
+	</div>
+</body>
+</html>

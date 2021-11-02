@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Robert Johnson's page</title>
+	</head>
+	<script>
+	function answerQuestion(answerID, answer) {
+		document.getElementById(answerID).innerHTML = answer;
+	}
+	
+	function clearAnswerFeedback() {
+		var answers = document.getElementsByClassName("answer");
+		for( var i = 0; i < answers.length; i++ ) {
+			answers[i].innerHTML = "";
+		}
+	}
+</script>
+	<body style="background-color:DodgerBlue;">
+
+		<h1>Robert Johnson's page</h1>
+		<p>With Halloween coming up, this page will be a quiz about Halloween. 
+			<a href="https://en.wikipedia.org/wiki/Halloween" target="_blank">Halloween Wiki</a>
+		You can use this page or Google to help you with the quiz.
+		</p>
+		<p class="question"> 1. What day is Halloween on?
+		<p><button onclick="answerQuestion('question1','Really? Incorrect dude.')"> October 30 </button>
+		<p><button onclick="answerQuestion('question1','Not even close, try again.')"> November 1 </button>
+		<p><button onclick="answerQuestion('question1','Wow, correct, you must be some kind of a genius huh.')"> October 31 </button>
+		<p id="question1" class="answer">  </p>
+		
+		<p class="question"> 2. What famous Halloween treat was rumored to have razor blades put inside of them?
+		<p><img src="candyapple.jpg" onclick="answerQuestion('question2','Correct, some hospitals offered free x-rays to check for them.')" width=100 height=100> 
+		<p><img src="candycorn.jpg" onclick="answerQuestion('question2','Incorrect, try again!')" width=100 height=100>
+		<p><img src="lollipop.jpg" onclick="answerQuestion('question2','Incorrect, maybe next time.')" width=100 height=100>
+		<p id="question2" class="answer">  </p>
+		
+		<p class="question"> 3. What is the phobia of Halloween called?
+		<p><button onclick="answerQuestion('question3','Errrr, Incorrect!')"> Halloweenophobia </button>
+		<p><button onclick="answerQuestion('question3','Correct, named after the festival where Halloween originated, Samhain.')"> Samhainophobia </button>
+		<p><button onclick="answerQuestion('question3','Incorrect, this is the fear of public speaking.')"> Glossophobia </button>
+		<p id="question3" class="answer">  </p>
+		</div>
+		
+		<p><button onclick="clearAnswerFeedback()"> Reset </button>
+
+			
+
+		</body>
+	</html>

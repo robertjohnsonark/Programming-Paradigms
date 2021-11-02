@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> Robert Johnson's Assignment 7 </title>
+	<style>
+		
+		label, input {
+			margin-bottom: 20px;
+			display: block;
+		}
+	
+	</style>
+	<script>
+	var auto
+	function createAuto() {
+		var engineDescription = document.getElementById('engineDescription').value
+		var mpg = Number(document.getElementById('mpg').value)
+		var maxSpeed = Number(document.getElementById('maxSpeed').value)
+		var autoDescription = document.getElementById('autoDescription').value
+		var capacity = Number(document.getElementById('capacity').value)
+		
+		var engine = new Engine(engineDescription, mpg, maxSpeed)
+		auto = new Auto(autoDescription, capacity, engine);
+		auto.fillUp();
+		
+		document.getElementById("output1").innerHTML = auto.getDescription()
+		document.getElementById("driveAuto").style.visibility='visible'
+		
+		return false
+	}
+	
+	function driveAuto() {
+        var distance = Number(document.getElementById("distance").value)
+        var xRatio = Number(document.getElementById("xRatio").value)
+        var yRatio = Number(document.getElementById("yRatio").value)
+        auto.drive(distance, xRatio, yRatio)
+        document.getElementById("output2").innerHTML = auto.getDescription()
+        return false
+    }
+	
+	function Auto(description, capacity, engine) {
+	    var xPos = 0
+	    var yPos = 0
+	    
+	    description = (description.length > 0) ? description : "Generic auto"
+	    var tank = new GasTank(capacity)
+	    this.getDescription = function() {
+            return description + " (engine: " + engine.getDescription() + "(MPG: " + engine.getMPG() + ")), fuel: " +
+                tank.getFuelLevel().toFixed(2) + "/" + tank.getCapacity().toFixed(2) + ", location: (" +
+                xPos.toFixed(2) + "," + yPos.toFixed(2) + ")"
+        }
+        this.getX = function() {
+            return xPos
+        }
+        this.getY = function() {
+            return yPos
+        }
+        this.fillUp = function() {
+            tank.fillUp()
+        }
+        this.getMPG = function() {
+            return engine.getMPG()
+        }
+        this.getFuelLevel = function() {
+            return tank.getFuelLevel()
+        }
+        this.getMaxSpeed = function() {
+            return engine.getMaxSpeed()
+        }
+	    
+        this.drive = function(distance, xRatio, yRatio) {
+		
+            var fuelUsed = distance / engine.getMPG()
+			if(fuelUsed > tank.getFuelLevel()) {
+			fuelUsed =  tank.getFuelLevel()
+			distance = (engine.getMPG() * fuelUsed)
+			alert("Ran out of gas after driving " + Math.round(distance,2) + " miles.")
+			}
+			tank.setFuelLevel(tank.getFuelLevel() - fuelUsed)
+		
+		
+			var m = Math.abs(yRatio / xRatio)
+		
+		 
+		if (m == 0) { 
+			if(xRatio < 0) {
+				 xPos = xPos - distance 
+			} else {
+				 xPos= xPos + distance 
+			}
+	       
+	    } 
+	  
+	    else { 
+	        var dx = (distance / Math.sqrt(1 + (m * m))) 
+	        var dy = m * dx
+	        if (xRatio < 0) {
+	        	xPos = (xPos - dx) 
+	        } else {
+	        	xPos = (xPos + dx) 
+	        }
+	        if (yRatio < 0) {
+	        	yPos =  (yPos - dy) 
+	        } else {
+	        	yPos = (yPos + dy) 
+	        }
+	    } 
+		return distance
+	}
+	}
+	
+	function Engine(description, mpg, maxSpeed) {
+        description = (description.length > 0) ? description : "Generic engine"
+        mpg = (mpg >= 0) ? mpg : 0
+        maxSpeed = (maxSpeed >= 0) ? maxSpeed : 0
+        this.getDescription = function() {
+            return description
+        }
+        this.getMPG = function() {
+            return mpg
+        }
+        this.getMaxSpeed = function() {
+            return maxSpeed
+        }
+    }
+	
+	function GasTank(capacity) {
+        capacity = (capacity >= 0) ? capacity : 0
+        var level = 0.0
+        this.getFuelLevel = function() {
+            return level
+        }
+        this.getCapacity = function() {
+            return capacity
+        }
+        this.fillUp = function() {
+            level = capacity
+        }
+        this.setFuelLevel = function(fuel) {
+            level = fuel
+        }
+    }
+</script>
+</head>
+
+
+
+
+<body>
+<header>
+	<h1> Robert Johnson's Assignment 7 </h1>
+</header>
+
+	<form id="newAuto">
+		<label> Engine Description:  <input type="text" name="engineDescription" id="engineDescription" value="TestEngine"> </label>
+		<label> Miles per Gallon:  <input type="text" name="mpg" id="mpg" value="25"> </label>
+		<label> Max Speed (MPH): <input type="text" name="maxSpeed" id="maxSpeed" value="100"> </label>
+		<label> Auto Description: <input type="text" name="autoDescription" id="autoDescription" value="TestAuto"> </label>
+		<label> Max Fuel Capacity (Gallons): <input type="text" name="capacity" id="capacity" value="20"> </label> 
+		<label><input type="button" onclick="createAuto()" value="Create the auto"> </label>
+	</form>
+	<p id="output1" >
+	
+	<form id="driveAuto" style="visibility:hidden">
+        <label> Distance (miles): <input type="text" id="distance" value="50"> </label>
+        <label> X ratio: <input type="text" id="xRatio" value="1.0">  </label>
+        <label> Y ratio: <input type="text" id="yRatio" value="1.0"> </label>
+        <label> <input type="button" onclick="driveAuto()" value="Drive the auto"> </label>
+    </form>
+    <p id="output2">
+</body>
+</html>
